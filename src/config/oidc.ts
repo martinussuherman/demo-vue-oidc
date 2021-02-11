@@ -1,6 +1,6 @@
 import { VuexOidcClientSettings } from 'vuex-oidc'
 
-export async function getRuntimeOidcConfig() {
+export async function getRuntimeOidcConfig () {
   const runtimeConfig = await fetch('./oidc.json')
   const config = await runtimeConfig.json()
 

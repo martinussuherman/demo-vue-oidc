@@ -23,7 +23,7 @@ const listeners: VuexOidcStoreListeners = {
   automaticSilentRenewError: (payload) => window.console.log('OIDC automaticSilentRenewError', payload)
 }
 
-export async function configureVuexOidc() {
+export async function configureVuexOidc () {
   const oidcStore = vuexOidcCreateStoreModule(
     await getRuntimeOidcConfig(),
     storeSettings,

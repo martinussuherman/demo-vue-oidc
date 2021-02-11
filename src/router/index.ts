@@ -10,12 +10,12 @@ import OidcCallbackError from '@/views/OidcCallbackError.vue'
 
 export type VuexOidcRouteConfig = RouteConfig & {
   meta?: {
-    isPublic?: boolean,
-    isOidcCallback?: boolean
-  }
+    isPublic?: boolean;
+    isOidcCallback?: boolean;
+  };
 }
 
-async function createOidcRoute () : Promise<NavigationGuard<Vue>> {
+async function createOidcRoute (): Promise<NavigationGuard<Vue>> {
   return vuexOidcCreateRouterMiddleware(await configureVuexStore(), 'oidcStore')
 }
 
