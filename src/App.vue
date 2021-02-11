@@ -7,7 +7,7 @@
         v-if="oidcIsAuthenticated"
         @click="signOutOidc"
       >
-        {{ oidcUser?.profile?.email }} - Logout
+        {{ oidcUser.profile.email }} - Logout
       </button>
     </div>
     <router-view/>
