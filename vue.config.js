@@ -4,13 +4,19 @@ module.exports = {
       entry: 'src/main.ts',
       template: 'public/index.html',
       filename: 'index.html',
-      excludeChunks: ['silent-renew-oidc']
+      excludeChunks: ['silentrenewoidc']
+    },
+    notfound: {
+      entry: 'src/main.ts',
+      template: 'public/404.html',
+      filename: '404.html',
+      excludeChunks: ['silentrenewoidc']
     },
     silentrenewoidc: {
       entry: 'src/silent-renew-oidc.ts',
       template: 'public/silent-renew-oidc.html',
       filename: 'silent-renew-oidc.html',
-      excludeChunks: ['app']
+      excludeChunks: ['app', 'notfound']
     }
   },
 
