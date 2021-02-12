@@ -5,24 +5,31 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
-import { namespace } from 'vuex-class'
-import { User } from 'oidc-client'
+import { mapActions } from 'vuex'
+import { VuexOidcStoreActions } from 'vuex-oidc'
 
-const oidcStore = namespace('oidcStore')
+@Component({
+  methods: {
+    ...mapActions(
+      'oidcStore',
+      {
+        oidcSignInPopupCallback: 'oidcSignInPopupCallback'
+      }
+    )
+  }
+})
 
-@Component
 export default class OidcPopupCallback extends Vue {
-  @oidcStore.Action
-  public oidcSignInPopupCallback!: (url?: string) => Promise<User | undefined>
+  oidcSignInPopupCallback!: VuexOidcStoreActions['oidcSignInPopupCallback'];
 
-  created () {
+  mounted () {
     this.oidcSignInPopupCallback()
       .then((user) => {
         console.log(user?.profile.name)
       })
       .catch((err) => {
         console.error(err)
-        this.$router.push('/signin-oidc-error') // Handle errors any way you want
+        this.$router.push('/oidc-callback-error') // Handle errors any way you want
       })
   }
 }

@@ -5,23 +5,32 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
-import { namespace } from 'vuex-class'
+import { mapActions } from 'vuex'
+import { VuexOidcStoreActions } from 'vuex-oidc'
 
-const oidcStore = namespace('oidcStore')
+@Component({
+  methods:
+  {
+    ...mapActions(
+      'oidcStore',
+      {
+        oidcSignInCallback: 'oidcSignInCallback'
+      }
+    )
+  }
+})
 
-@Component
 export default class OidcCallback extends Vue {
-  @oidcStore.Action
-  public oidcSignInCallback!: (url?: string) => Promise<string>
+  oidcSignInCallback!: VuexOidcStoreActions['oidcSignInCallback'];
 
-  created () {
+  mounted () {
     this.oidcSignInCallback()
       .then((redirectPath) => {
         this.$router.push(redirectPath)
       })
       .catch((err) => {
         console.error(err)
-        this.$router.push('/signin-oidc-error') // Handle errors any way you want
+        this.$router.push('/oidc-callback-error') // Handle errors any way you want
       })
   }
 }
