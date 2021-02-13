@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import VueRouter, { NavigationGuard, RouteConfig } from 'vue-router'
+import VueRouter, { NavigationGuard, Route, RouteConfig } from 'vue-router'
 import { vuexOidcCreateRouterMiddleware } from 'vuex-oidc'
 import { configureVuexStore } from '@/store'
 import Home from '@/views/Home.vue'
@@ -8,11 +8,18 @@ import OidcCallback from '@/views/OidcCallback.vue'
 import OidcPopupCallback from '@/views/OidcPopupCallback.vue'
 import OidcCallbackError from '@/views/OidcCallbackError.vue'
 
+interface VuexOidcRouteMeta {
+  isPublic?: boolean;
+  isOidcCallback?: boolean;
+  [propName: string]: any;
+}
+
 export type VuexOidcRouteConfig = RouteConfig & {
-  meta?: {
-    isPublic?: boolean;
-    isOidcCallback?: boolean;
-  };
+  meta?: VuexOidcRouteMeta;
+}
+
+export interface VuexOidcRoute extends Route {
+  meta?: VuexOidcRouteMeta;
 }
 
 async function createOidcRoute (): Promise<NavigationGuard<Vue>> {
