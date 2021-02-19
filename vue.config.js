@@ -22,5 +22,9 @@ module.exports = {
 
   publicPath: process.env.NODE_ENV === 'production'
     ? '/demo-vue-oidc/'
-    : '/demo-vue-oidc/'
+    : '/demo-vue-oidc/',
+
+  transpileDependencies: [
+    'vuetify'
+  ]
 }
