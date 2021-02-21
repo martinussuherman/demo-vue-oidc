@@ -11,7 +11,7 @@ import OidcCallbackError from '@/views/OidcCallbackError.vue'
 interface VuexOidcRouteMeta {
   isPublic?: boolean;
   isOidcCallback?: boolean;
-  [propName: string]: any;
+  [propName: string]: unknown;
 }
 
 export type VuexOidcRouteConfig = RouteConfig & {
