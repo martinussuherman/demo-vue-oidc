@@ -62,14 +62,14 @@
 
             <v-list-item to="/about">
               <v-list-item-icon>
-                <v-icon>mdi-about</v-icon>
+                <v-icon>mdi-book</v-icon>
               </v-list-item-icon>
               <v-list-item-title>About (Protected Page)</v-list-item-title>
             </v-list-item>
 
             <v-list-item v-if="oidcIsAuthenticated" @click.prevent="signOut">
               <v-list-item-icon>
-                <v-icon>mdi-account</v-icon>
+                <v-icon>mdi-account-circle</v-icon>
               </v-list-item-icon>
               <v-list-item-title>Sign out - {{ oidcUser.email }}</v-list-item-title>
             </v-list-item>
