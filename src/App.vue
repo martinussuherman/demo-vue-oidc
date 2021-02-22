@@ -49,10 +49,7 @@
           nav
           dense
         >
-          <v-list-item-group
-            v-model="group"
-            active-class="deep-purple--text text--accent-4"
-          >
+          <v-list-item-group>
             <v-list-item to="/">
               <v-list-item-icon>
                 <v-icon>mdi-home</v-icon>
@@ -72,6 +69,14 @@
                 <v-icon>mdi-account-circle</v-icon>
               </v-list-item-icon>
               <v-list-item-title>Sign out - {{ userEmail }}</v-list-item-title>
+            </v-list-item>
+
+            <v-list-item>
+              <v-switch
+                v-model="$vuetify.theme.dark"
+                label="Light/Dark"
+              >
+              </v-switch>
             </v-list-item>
           </v-list-item-group>
         </v-list>
