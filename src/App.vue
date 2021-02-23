@@ -64,11 +64,19 @@
               <v-list-item-title>About (Protected Page)</v-list-item-title>
             </v-list-item>
 
-            <v-list-item v-if="oidcIsAuthenticated" @click.prevent="signOut">
+            <v-list-item v-if="isAuthenticated" @click.prevent="signOut">
               <v-list-item-icon>
                 <v-icon>mdi-account-circle</v-icon>
               </v-list-item-icon>
-              <v-list-item-title>Sign out - {{ oidcUser.email }}</v-list-item-title>
+              <v-list-item-title>Sign out - {{ userEmail }}</v-list-item-title>
+            </v-list-item>
+
+            <v-list-item>
+              <v-switch
+                v-model="$vuetify.theme.dark"
+                label="Light/Dark"
+              >
+              </v-switch>
             </v-list-item>
           </v-list-item-group>
         </v-list>
@@ -82,8 +90,9 @@
 <script lang="ts">
 import { mapActions, mapGetters } from 'vuex'
 import { Component, Vue } from 'vue-property-decorator'
-import { VuexOidcStoreActions, VuexOidcStoreGetters } from 'vuex-oidc'
-import { Profile } from 'oidc-client'
+import { VuexOidcStoreActions } from 'vuex-oidc'
+import { User } from 'oidc-client'
+import { OidcCustomEventInit } from '@/helper/oidc'
 import { VApp, VAppBar, VAppBarNavIcon, VMain, VIcon, VImg, VSpacer, VBtn, VNavigationDrawer, VList, VListItemGroup, VListItem, VListItemTitle, VListItemIcon } from 'vuetify/lib'
 
 /** https://stackoverflow.com/questions/60099323/how-to-use-mapactions-with-vue-typescript-class-component */
@@ -107,10 +116,7 @@ import { VApp, VAppBar, VAppBarNavIcon, VMain, VIcon, VImg, VSpacer, VBtn, VNavi
   computed: {
     ...mapGetters(
       'oidcStore',
-      {
-        oidcIsAuthenticated: 'oidcIsAuthenticated',
-        oidcUser: 'oidcUser'
-      }
+      {}
     )
   },
   methods: {
@@ -127,12 +133,8 @@ import { VApp, VAppBar, VAppBarNavIcon, VMain, VIcon, VImg, VSpacer, VBtn, VNavi
 
 export default class App extends Vue {
   drawer = false
-
-  oidcIsAuthenticated!: VuexOidcStoreGetters['oidcIsAuthenticated'];
-
-  /** oidcUser in vuex-oidc returns any  */
-  // oidcUser!: VuexOidcStoreGetters['oidcUser'];
-  oidcUser!: Profile;
+  isAuthenticated = false
+  userEmail = ''
 
   authenticateOidcPopup!: VuexOidcStoreActions['authenticateOidcPopup'];
 
@@ -144,10 +146,6 @@ export default class App extends Vue {
   //  removeOidcUser!: VuexOidcStoreActions['removeOidcUser'];
   removeOidcUser!: () => Promise<void>;
 
-  hasAccess () {
-    return this.oidcIsAuthenticated || this.$route.meta.isPublic
-  }
-
   signOut () {
     this.signOutOidc().then(() => {
       this.$router.push('/')
@@ -156,6 +154,16 @@ export default class App extends Vue {
 
   toggleDrawer () {
     this.drawer = !this.drawer
+  }
+
+  userLoaded (data: OidcCustomEventInit<User>) {
+    this.isAuthenticated = (data.detail !== null && !data.detail?.expired)
+    this.userEmail = data.detail?.profile.email ?? ''
+    window.console.log(`Authenticated: ${this.isAuthenticated} - email: ${this.userEmail}`)
+  }
+
+  mounted () {
+    window.addEventListener('vuexoidc:userLoaded', this.userLoaded)
   }
 }
 </script>
