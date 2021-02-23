@@ -49,10 +49,7 @@
           nav
           dense
         >
-          <v-list-item-group
-            v-model="group"
-            active-class="deep-purple--text text--accent-4"
-          >
+          <v-list-item-group>
             <v-list-item to="/">
               <v-list-item-icon>
                 <v-icon>mdi-home</v-icon>
@@ -87,9 +84,26 @@ import { mapActions, mapGetters } from 'vuex'
 import { Component, Vue } from 'vue-property-decorator'
 import { VuexOidcStoreActions, VuexOidcStoreGetters } from 'vuex-oidc'
 import { Profile } from 'oidc-client'
+import { VApp, VAppBar, VAppBarNavIcon, VMain, VIcon, VImg, VSpacer, VBtn, VNavigationDrawer, VList, VListItemGroup, VListItem, VListItemTitle, VListItemIcon } from 'vuetify/lib'
 
 /** https://stackoverflow.com/questions/60099323/how-to-use-mapactions-with-vue-typescript-class-component */
 @Component({
+  components: {
+    VApp,
+    VAppBar,
+    VAppBarNavIcon,
+    VMain,
+    VIcon,
+    VImg,
+    VSpacer,
+    VBtn,
+    VNavigationDrawer,
+    VList,
+    VListItemGroup,
+    VListItem,
+    VListItemTitle,
+    VListItemIcon
+  },
   computed: {
     ...mapGetters(
       'oidcStore',
