@@ -93,7 +93,7 @@ import { Component, Vue } from 'vue-property-decorator'
 import { VuexOidcStoreActions } from 'vuex-oidc'
 import { User } from 'oidc-client'
 import { OidcCustomEventInit } from '@/helper/oidc'
-import { VApp, VAppBar, VAppBarNavIcon, VMain, VIcon, VImg, VSpacer, VBtn, VNavigationDrawer, VList, VListItemGroup, VListItem, VListItemTitle, VListItemIcon } from 'vuetify/lib'
+import { VApp, VAppBar, VAppBarNavIcon, VMain, VIcon, VImg, VSpacer, VBtn, VNavigationDrawer, VList, VListItemGroup, VListItem, VListItemTitle, VListItemIcon, VSwitch } from 'vuetify/lib'
 
 /** https://stackoverflow.com/questions/60099323/how-to-use-mapactions-with-vue-typescript-class-component */
 @Component({
@@ -111,7 +111,8 @@ import { VApp, VAppBar, VAppBarNavIcon, VMain, VIcon, VImg, VSpacer, VBtn, VNavi
     VListItemGroup,
     VListItem,
     VListItemTitle,
-    VListItemIcon
+    VListItemIcon,
+    VSwitch
   },
   computed: {
     ...mapGetters(
