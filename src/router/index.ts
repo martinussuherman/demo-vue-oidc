@@ -1,12 +1,12 @@
 import Vue from 'vue'
 import VueRouter, { NavigationGuard, Route, RouteConfig } from 'vue-router'
 import { vuexOidcCreateRouterMiddleware } from 'vuex-oidc'
-import { configureVuexStore } from '@/store'
-import Home from '@/views/Home.vue'
-import About from '@/views/About.vue'
-import OidcCallback from '@/views/OidcCallback.vue'
-import OidcPopupCallback from '@/views/OidcPopupCallback.vue'
-import OidcCallbackError from '@/views/OidcCallbackError.vue'
+import { configureVuexStore } from '../store'
+import Home from '../views/Home.vue'
+import About from '../views/About.vue'
+import OidcCallback from '../views/OidcCallback.vue'
+import OidcPopupCallback from '../views/OidcPopupCallback.vue'
+import OidcCallbackError from '../views/OidcCallbackError.vue'
 
 interface VuexOidcRouteMeta {
   isPublic?: boolean;
