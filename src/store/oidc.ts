@@ -1,5 +1,5 @@
 import { vuexOidcCreateStoreModule, VuexOidcStoreSettings, VuexOidcStoreListeners } from 'vuex-oidc'
-import { getRuntimeOidcConfig } from '@/config/oidc'
+import { getRuntimeOidcConfig } from '../config/oidc'
 
 // NOTE: If you want to customize how tokens are stored you can use WebStorageStateStore from oidc-client (see bellow)
 // Default storage is window.localStorage

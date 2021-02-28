@@ -1,12 +1,12 @@
 import Vue from 'vue'
 import VueRouter, { NavigationGuard, Route, RouteConfig } from 'vue-router'
 import { vuexOidcCreateRouterMiddleware } from 'vuex-oidc'
-import { configureVuexStore } from '@/store'
-import Home from '@/views/Home.vue'
-import About from '@/views/About.vue'
-import OidcCallback from '@/views/OidcCallback.vue'
-import OidcPopupCallback from '@/views/OidcPopupCallback.vue'
-import OidcCallbackError from '@/views/OidcCallbackError.vue'
+import { configureVuexStore } from '../store'
+import Home from '../views/Home.vue'
+import About from '../views/About.vue'
+import OidcCallback from '../views/OidcCallback.vue'
+import OidcPopupCallback from '../views/OidcPopupCallback.vue'
+import OidcCallbackError from '../views/OidcCallbackError.vue'
 
 interface VuexOidcRouteMeta {
   isPublic?: boolean;
@@ -71,7 +71,8 @@ export async function configureRouter () {
 
   const router = new VueRouter({
     mode: 'history',
-    base: process.env.BASE_URL,
+    // @ts-ignore - Vite exposes env variables on the special import.meta.env object
+    base: import.meta.env.BASE_URL,
     routes
   })
 

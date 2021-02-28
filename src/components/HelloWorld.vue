@@ -93,8 +93,17 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator'
+import { VContainer, VRow, VCol, VImg } from 'vuetify/lib'
 
-@Component
+@Component({
+  components: {
+    VContainer,
+    VRow,
+    VCol,
+    VImg
+  }
+})
+
 export default class HelloWorld extends Vue {
   @Prop() private msg!: string;
 
