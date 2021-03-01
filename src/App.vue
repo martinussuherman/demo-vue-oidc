@@ -1,10 +1,6 @@
 <template>
   <v-app>
-    <v-app-bar
-      app
-      color="primary"
-      dark
-    >
+    <v-app-bar app color="primary" dark>
       <v-app-bar-nav-icon @click="toggleDrawer"></v-app-bar-nav-icon>
 
       <div class="d-flex align-center">
@@ -40,15 +36,8 @@
     </v-app-bar>
 
     <v-main>
-      <v-navigation-drawer
-        v-model="drawer"
-        absolute
-        temporary
-      >
-        <v-list
-          nav
-          dense
-        >
+      <v-navigation-drawer v-model="drawer" absolute temporary>
+        <v-list nav dense>
           <v-list-item-group>
             <v-list-item to="/">
               <v-list-item-icon>
@@ -72,28 +61,41 @@
             </v-list-item>
 
             <v-list-item>
-              <v-switch
-                v-model="$vuetify.theme.dark"
-                label="Light/Dark"
-              >
+              <v-switch v-model="$vuetify.theme.dark" label="Light/Dark">
               </v-switch>
             </v-list-item>
           </v-list-item-group>
         </v-list>
       </v-navigation-drawer>
 
-      <router-view/>
-   </v-main>
+      <router-view />
+    </v-main>
   </v-app>
 </template>
 
 <script lang="ts">
-import { mapActions, mapGetters } from 'vuex'
-import { Component, Vue } from 'vue-property-decorator'
-import { VuexOidcStoreActions } from 'vuex-oidc'
-import { User } from 'oidc-client'
-import { OidcCustomEventInit } from '@/helper/oidc'
-import { VApp, VAppBar, VAppBarNavIcon, VMain, VIcon, VImg, VSpacer, VBtn, VNavigationDrawer, VList, VListItemGroup, VListItem, VListItemTitle, VListItemIcon, VSwitch } from 'vuetify/lib'
+import { mapActions, mapGetters } from "vuex";
+import { Component, Vue } from "vue-property-decorator";
+import { VuexOidcStoreActions } from "vuex-oidc";
+import { User } from "oidc-client";
+import { OidcCustomEventInit } from "@/helper/oidc";
+import {
+  VApp,
+  VAppBar,
+  VAppBarNavIcon,
+  VMain,
+  VIcon,
+  VImg,
+  VSpacer,
+  VBtn,
+  VNavigationDrawer,
+  VList,
+  VListItemGroup,
+  VListItem,
+  VListItemTitle,
+  VListItemIcon,
+  VSwitch,
+} from "vuetify/lib";
 
 /** https://stackoverflow.com/questions/60099323/how-to-use-mapactions-with-vue-typescript-class-component */
 @Component({
@@ -112,32 +114,25 @@ import { VApp, VAppBar, VAppBarNavIcon, VMain, VIcon, VImg, VSpacer, VBtn, VNavi
     VListItem,
     VListItemTitle,
     VListItemIcon,
-    VSwitch
+    VSwitch,
   },
   computed: {
-    ...mapGetters(
-      'oidcStore',
-      {}
-    )
+    ...mapGetters("oidcStore", {}),
   },
   methods: {
-    ...mapActions(
-      'oidcStore',
-      {
-        authenticateOidcPopup: 'authenticateOidcPopup',
-        removeOidcUser: 'removeOidcUser',
-        signOutOidc: 'signOutOidc'
-      }
-    )
-  }
+    ...mapActions("oidcStore", {
+      authenticateOidcPopup: "authenticateOidcPopup",
+      removeOidcUser: "removeOidcUser",
+      signOutOidc: "signOutOidc",
+    }),
+  },
 })
-
 export default class App extends Vue {
-  drawer = false
-  isAuthenticated = false
-  userEmail = ''
+  drawer = false;
+  isAuthenticated = false;
+  userEmail = "";
 
-  authenticateOidcPopup!: VuexOidcStoreActions['authenticateOidcPopup'];
+  authenticateOidcPopup!: VuexOidcStoreActions["authenticateOidcPopup"];
 
   /** removeOidcUser in vuex-oidc returns void  */
   // signOutOidc!: VuexOidcStoreActions['signOutOidc'];
@@ -147,24 +142,27 @@ export default class App extends Vue {
   //  removeOidcUser!: VuexOidcStoreActions['removeOidcUser'];
   removeOidcUser!: () => Promise<void>;
 
-  signOut () {
+  signOut() {
     this.signOutOidc().then(() => {
-      this.$router.push('/')
-    })
+      this.$router.push("/");
+    });
   }
 
-  toggleDrawer () {
-    this.drawer = !this.drawer
+  toggleDrawer() {
+    this.drawer = !this.drawer;
   }
 
-  userLoaded (data: OidcCustomEventInit<User>) {
-    this.isAuthenticated = (data.detail !== null && !data.detail?.expired)
-    this.userEmail = data.detail?.profile.email ?? ''
-    window.console.log(`Authenticated: ${this.isAuthenticated} - email: ${this.userEmail}`)
+  userLoaded(data: OidcCustomEventInit<User>) {
+    this.isAuthenticated = data.detail !== null && !data.detail?.expired;
+    this.userEmail = data.detail?.profile.email ?? "";
+    const dateTime = new Date();
+    window.console.log(
+      `Authenticated: ${this.isAuthenticated} - email: ${this.userEmail} at ${dateTime}`
+    );
   }
 
-  mounted () {
-    window.addEventListener('vuexoidc:userLoaded', this.userLoaded)
+  mounted() {
+    window.addEventListener("vuexoidc:userLoaded", this.userLoaded);
   }
 }
 </script>

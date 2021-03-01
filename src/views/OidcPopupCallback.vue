@@ -1,36 +1,31 @@
 <template>
-  <div>
-  </div>
+  <div></div>
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator'
-import { mapActions } from 'vuex'
-import { VuexOidcStoreActions } from 'vuex-oidc'
+import { Component, Vue } from "vue-property-decorator";
+import { mapActions } from "vuex";
+import { VuexOidcStoreActions } from "vuex-oidc";
 
 @Component({
   methods: {
-    ...mapActions(
-      'oidcStore',
-      {
-        oidcSignInPopupCallback: 'oidcSignInPopupCallback'
-      }
-    )
-  }
+    ...mapActions("oidcStore", {
+      oidcSignInPopupCallback: "oidcSignInPopupCallback",
+    }),
+  },
 })
-
 export default class OidcPopupCallback extends Vue {
-  oidcSignInPopupCallback!: VuexOidcStoreActions['oidcSignInPopupCallback'];
+  oidcSignInPopupCallback!: VuexOidcStoreActions["oidcSignInPopupCallback"];
 
-  mounted () {
+  mounted() {
     this.oidcSignInPopupCallback()
       .then((user) => {
-        console.log(user?.profile.name)
+        console.log(user?.profile.name);
       })
       .catch((err) => {
-        console.error(err)
-        this.$router.push('/oidc-callback-error') // Handle errors any way you want
-      })
+        console.error(err);
+        this.$router.push("/oidc-callback-error"); // Handle errors any way you want
+      });
   }
 }
 </script>

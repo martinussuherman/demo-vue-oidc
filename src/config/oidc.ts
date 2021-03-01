@@ -1,8 +1,8 @@
-import { VuexOidcClientSettings } from 'vuex-oidc'
+import { VuexOidcClientSettings } from "vuex-oidc";
 
-export async function getRuntimeOidcConfig () {
-  const runtimeConfig = await fetch('./oidc.json')
-  const config = await runtimeConfig.json()
+export async function getRuntimeOidcConfig() {
+  const runtimeConfig = await fetch("./oidc.json");
+  const config = await runtimeConfig.json();
 
   const clientSetting: VuexOidcClientSettings = {
     authority: config.authority,
@@ -14,9 +14,9 @@ export async function getRuntimeOidcConfig () {
     automaticSilentRenew: config.automaticSilentRenew,
     automaticSilentSignin: config.automaticSilentSignin,
     silentRedirectUri: config.silentRedirectUri,
-    postLogoutRedirectUri: config.postLogoutRedirectUri
-  }
+    postLogoutRedirectUri: config.postLogoutRedirectUri,
+  };
 
-  window.console.log(clientSetting)
-  return clientSetting
+  window.console.log(clientSetting);
+  return clientSetting;
 }

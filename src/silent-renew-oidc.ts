@@ -1,3 +1,3 @@
-import { vuexOidcProcessSilentSignInCallback } from 'vuex-oidc'
+import { vuexOidcProcessSilentSignInCallback } from "vuex-oidc";
 
-vuexOidcProcessSilentSignInCallback()
+vuexOidcProcessSilentSignInCallback();
