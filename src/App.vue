@@ -36,7 +36,7 @@
     </v-app-bar>
 
     <v-main>
-      <v-navigation-drawer v-model="drawer" absolute temporary>
+      <v-navigation-drawer v-model="drawer" fixed temporary>
         <v-list nav dense>
           <v-list-item-group>
             <v-list-item to="/">
@@ -128,7 +128,7 @@ import {
   },
 })
 export default class App extends Vue {
-  drawer = false;
+  drawerState = false;
   isAuthenticated = false;
   userEmail = "";
 
@@ -136,23 +136,23 @@ export default class App extends Vue {
 
   /** removeOidcUser in vuex-oidc returns void  */
   // signOutOidc!: VuexOidcStoreActions['signOutOidc'];
-  signOutOidc!: (payload?: object) => Promise<void>;
+  signOutOidc!: (payload?: unknown) => Promise<void>;
 
   /** removeOidcUser in vuex-oidc returns void  */
   //  removeOidcUser!: VuexOidcStoreActions['removeOidcUser'];
   removeOidcUser!: () => Promise<void>;
 
-  signOut() {
+  signOut(): void {
     this.signOutOidc().then(() => {
       this.$router.push("/");
     });
   }
 
-  toggleDrawer() {
-    this.drawer = !this.drawer;
+  toggleDrawer(): void {
+    this.drawerState = !this.drawerState;
   }
 
-  userLoaded(data: OidcCustomEventInit<User>) {
+  userLoaded(data: OidcCustomEventInit<User>): void {
     this.isAuthenticated = data.detail !== null && !data.detail?.expired;
     this.userEmail = data.detail?.profile.email ?? "";
     const dateTime = new Date();
@@ -161,7 +161,7 @@ export default class App extends Vue {
     );
   }
 
-  mounted() {
+  mounted(): void {
     window.addEventListener("vuexoidc:userLoaded", this.userLoaded);
   }
 }
