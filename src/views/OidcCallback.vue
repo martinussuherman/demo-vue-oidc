@@ -17,7 +17,7 @@ import { VuexOidcStoreActions } from "vuex-oidc";
 export default class OidcCallback extends Vue {
   oidcSignInCallback!: VuexOidcStoreActions["oidcSignInCallback"];
 
-  mounted() {
+  mounted(): void {
     this.oidcSignInCallback()
       .then((redirectPath) => {
         this.$router.push(redirectPath);

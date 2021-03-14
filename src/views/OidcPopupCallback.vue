@@ -17,7 +17,7 @@ import { VuexOidcStoreActions } from "vuex-oidc";
 export default class OidcPopupCallback extends Vue {
   oidcSignInPopupCallback!: VuexOidcStoreActions["oidcSignInPopupCallback"];
 
-  mounted() {
+  mounted(): void {
     this.oidcSignInPopupCallback()
       .then((user) => {
         console.log(user?.profile.name);
