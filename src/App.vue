@@ -36,7 +36,7 @@
     </v-app-bar>
 
     <v-main>
-      <v-navigation-drawer v-model="drawer" fixed temporary>
+      <v-navigation-drawer v-model="drawerState" fixed temporary>
         <v-list nav dense>
           <v-list-item-group>
             <v-list-item to="/">
