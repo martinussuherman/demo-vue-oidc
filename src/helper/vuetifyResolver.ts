@@ -8,7 +8,6 @@ import { ComponentResolver } from "vite-plugin-components";
 export const VuetifyResolver = (): ComponentResolver => (name: string) => {
   if (name.match(/^V[A-Z]/)) {
     return {
-      name: name,
       importName: name,
       path: "vuetify/lib",
     };
