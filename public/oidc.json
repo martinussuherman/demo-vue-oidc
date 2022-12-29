@@ -1,6 +1,6 @@
 {
-    "authority": "https://demo.identityserver.io",
-    "clientId": "interactive.public",
+    "authority": "https://demo.identityserver.com",
+    "clientId": "interactive.public.short",
     "responseType": "code",
     "scope": "openid profile email api offline_access",
     "redirectUri": "https://martinussuherman.github.io/demo-vue-oidc/oidc-callback",
